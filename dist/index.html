@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#081523" />
+    <title>chlecwink · my little corner</title>
+    <meta
+      name="description"
+      content="A little about me."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;550;600;650;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="assets/portfolio.css?v=7" />
+  </head>
+  <body>
+    <canvas id="wallpaper" aria-hidden="true"></canvas>
+    <div class="shade" aria-hidden="true"></div>
+    <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <symbol id="user" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
+        </symbol>
+        <symbol id="heart" viewBox="0 0 24 24">
+          <path
+            d="M20.5 4.8a5.2 5.2 0 0 0-7.4 0L12 5.9l-1.1-1.1a5.2 5.2 0 0 0-7.4 7.4L12 21l8.5-8.8a5.2 5.2 0 0 0 0-7.4Z"
+          />
+        </symbol>
+        <symbol id="shield" viewBox="0 0 24 24">
+          <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z" />
+          <path d="M12 8v5m0 3h.01" />
+        </symbol>
+        <symbol id="asterisk" viewBox="0 0 24 24">
+          <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M5.6 18.4 18.4 5.6" />
+        </symbol>
+      </defs>
+    </svg>
+    <div class="page-mark" aria-hidden="true">
+      <svg><use href="#asterisk" /></svg><span>my little corner</span>
+    </div>
+    <button
+      id="motion"
+      class="motion glass"
+      aria-pressed="false"
+      aria-label="Pause background animation"
+    >
+      <canvas class="glass-texture" aria-hidden="true"></canvas
+      ><span class="motion-icon" aria-hidden="true">Ⅱ</span
+      ><span class="motion-label">Pause motion</span>
+    </button>
+    <main>
+      <!-- PERSONALIZE: Your name, monogram, biography, interests and boundaries. -->
+      <article class="profile-card glass">
+        <canvas class="glass-texture" aria-hidden="true"></canvas>
+        <header class="identity">
+          <div class="avatar glass" aria-hidden="true">
+            <canvas class="glass-texture" aria-hidden="true"></canvas
+            ><span>m<span class="period">.</span></span>
+          </div>
+          <div class="identity-copy">
+            <div class="name-row">
+              <h1>milo</h1>
+              <svg aria-hidden="true"><use href="#asterisk" /></svg>
+            </div>
+            <p class="handle">@chlecwink</p>
+          </div>
+        </header>
+        <nav class="tab-dock glass" aria-label="Profile sections">
+          <canvas class="glass-texture" aria-hidden="true"></canvas>
+          <div class="tabs" role="tablist" aria-label="About Milo">
+            <span class="selection" aria-hidden="true"></span>
+            <button
+              id="about-tab"
+              role="tab"
+              aria-controls="about-panel"
+              aria-selected="true"
+              tabindex="0"
+              data-tab="about"
+            >
+              <svg aria-hidden="true"><use href="#user" /></svg
+              ><span>About Me</span>
+            </button>
+            <button
+              id="interests-tab"
+              role="tab"
+              aria-controls="interests-panel"
+              aria-selected="false"
+              tabindex="-1"
+              data-tab="interests"
+              aria-label="Hobbies and interests"
+            >
+              <svg aria-hidden="true"><use href="#heart" /></svg
+              ><span>Interests</span>
+            </button>
+            <button
+              id="dni-tab"
+              role="tab"
+              aria-controls="dni-panel"
+              aria-selected="false"
+              tabindex="-1"
+              data-tab="dni"
+            >
+              <svg aria-hidden="true"><use href="#shield" /></svg
+              ><span>DNI</span>
+            </button>
+          </div>
+        </nav>
+        <div class="panel-area">
+          <section
+            id="about-panel"
+            role="tabpanel"
+            aria-labelledby="about-tab"
+            tabindex="0"
+          >
+            <p class="eyebrow">Oh that me? Pure aura</p>
+            <h2>👋 Hey, I’m Milo.</h2>
+            <p>
+              I like watching Formula 1, and I also like editing! (sometimes)
+            </p>
+            <p>
+              I also like to listen to music and listening to music is something that I like to do!
+            </p>
+          </section>
+          <section
+            id="interests-panel"
+            role="tabpanel"
+            aria-labelledby="interests-tab"
+            tabindex="0"
+            hidden
+          >
+            <p class="eyebrow">Hobbies & interests</p>
+            <h2>Things I find interesting</h2>
+            <ul class="interests">
+              <li>
+                <span>01</span>
+                <div>
+                  <h3>Formula 1</h3>
+                  <p>Even though this sport gives me despression everyday (Thank you a lot, Ferrari) I'll always somehow find my way back to it</p>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <h3>Editing</h3>
+                  <p>My number one source for having a hunchback posture. (ehem ehem... <strong>@crownedleclerc</strong>)</p>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <h3>Making things</h3>
+                  <p>Turning ideas into something for the web.</p>
+                </div>
+              </li>
+            </ul>
+          </section>
+          <section
+            id="dni-panel"
+            role="tabpanel"
+            aria-labelledby="dni-tab"
+            tabindex="0"
+            hidden
+          >
+            <p class="eyebrow">Before you interact</p>
+            <h2>A few boundaries.</h2>
+            <p>Let’s keep this space kind and comfortable.</p>
+            <ul class="boundaries">
+              <li>No hate, discrimination, or harassment.</li>
+              <li>If you're an LS18 fan, please don't interact with me (respectfully)</li>
+              <li>Overral, just don't be a weird and we'll get along just fine!</li>
+            </ul>
+          </section>
+        </div>
+        <footer class="card-footer">
+          <span>Thanks for stopping by.</span
+          ><svg aria-hidden="true"><use href="#heart" /></svg>
+        </footer>
+      </article>
+
+      <p class="signoff">a little corner of the internet · chlecwink</p>
+    </main>
+    <script src="assets/portfolio.js?v=7"></script>
+  </body>
+</html>
