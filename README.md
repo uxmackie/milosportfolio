@@ -43,3 +43,14 @@ Canvas dimensions are now only assigned when they actually change. Any necessary
 
 ### Checks
 Run `node --test tests/*.cjs`. These cover canvas resize/repaint ordering and the API's missing credentials, zero counts, cache, expired-token and partial-video-error paths using mocked TikTok responses. No live TikTok account or browser validation was available for these checks.
+
+## Terms and privacy pages
+
+- Terms of Service: `/terms/` (alias `/tos`).
+- Privacy Policy: `/privacy/` (alias `/privacy-policy`).
+
+Use your public Vercel domain followed by those paths for the TikTok application. Neither page is linked from the main portfolio. Both have a back-to-portfolio link and a link to the other policy. The pages reuse the existing background, Inter font, glass material, and motion controls. They do not load the TikTok embed or API.
+
+The text describes this repository's current data handling and identifies Milo / @nerdyleclerc as the operator, using the X profile as the contact channel. Review the policy text before submitting it, particularly the contact channel and any hosting analytics/log settings enabled outside this repository. If you collect different data or later add visitor login, update the policy accordingly. These pages are not a guarantee of TikTok approval or legal compliance. TikTok also requires URL ownership verification; see https://developers.tiktok.com/docs/en/our-guidelines-developer-guidelines.
+
+Implementation: `dist/terms/index.html`, `dist/privacy/index.html`, `dist/assets/legal.css`, and `dist/assets/legal.js`. Vercel redirects are added in `vercel.json`. No existing homepage assets or API behavior were changed.
