@@ -21,15 +21,9 @@ The compact profile layout retains the canvas-based frosted glass and adds subtl
 The new fourth tab requests `/api/tiktok` when visible and refreshes every 60 seconds. This is periodically refreshed API data, not a push-based live counter. TikTok can also delay its own reported counts. Responses have a server-instance cache of 60 seconds. Manual refresh has a 15-second client cooldown. Counts display their full value on hover. The latest public post is embedded without autoplay, with caption, date, likes, comments, views, and shares. Switching away pauses the player.
 
 ### Connect your account
-1. Register a developer app with TikTok and obtain approval for Login Kit and Display API (or configure an eligible sandbox for testing).
-2. Authorize your TikTok account using TikTok's Login Kit flow, granting `user.info.basic`, `user.info.stats`, and `video.list`.
-3. Add the resulting user access token to your Vercel project's server-side environment variables as `TIKTOK_ACCESS_TOKEN`. Never add it to HTML, client JavaScript, Git, or a `PUBLIC`/`NEXT_PUBLIC` variable.
-4. Redeploy on Vercel. The root `api/tiktok.js` is a Vercel Node.js Function; keep the root `api` folder when uploading this project. Only `dist` is the static output directory.
-5. Open the TikTok tab. No username lookup or fabricated metrics are used: the token determines which account is displayed.
+Follow **[TIKTOK-SETUP.md](TIKTOK-SETUP.md)** for TikTok sandbox settings, Vercel environment variables, Upstash Redis, the private owner page, and the full review-demo sequence. Access/refresh tokens are now encrypted in Redis and renewed automatically when needed. The previous manually supplied TIKTOK_ACCESS_TOKEN is no longer used.
 
-**Authorization limitation:** this package accepts an existing access token; it does not yet include an owner OAuth connection screen or durable token-refresh storage. TikTok access tokens expire (typically 24 hours). Renew the token using TikTok's refresh flow and update the Vercel environment variable, or add durable OAuth token storage and renewal before expecting unattended long-term updates. An expired token produces a reconnection state rather than invented counts. Don't send access tokens in chat.
-
-The Sites preview is static and does not execute the Vercel Function; it shows the unconnected state. Live data can only be verified on your Vercel deployment after account authorization. A latest video that cannot be embedded can still be opened using Watch on TikTok. Recent cached counts may be shown for up to 15 minutes during a transient upstream failure, visibly marked as delayed.
+The private owner page is `/api/tiktok-admin`; TikTok returns to `/api/tiktok-callback`. No owner navigation was added to the homepage. After connection, View TikTok tab opens `/?tab=tiktok`. The static Sites preview cannot run Vercel Functions.
 
 Official references:
 - https://developers.tiktok.com/docs/en/tiktok-api-v2-get-user-info

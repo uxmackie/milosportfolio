@@ -38,6 +38,7 @@
     layout();
   }
   function failure(code){
+    if(['not_connected','reconnect_required'].includes(code)){data=null;videoId='';player.replaceChildren();videoSection.hidden=true;for(const id of ['tt-followers','tt-likes','tt-videos'])number(id,null);}
     if(data){status.textContent='Updates delayed · showing the last fetched counts.';return;}
     status.textContent=code==='not_connected'?'TikTok isn’t connected yet.':code==='reconnect_required'?'TikTok needs to be reconnected.':'TikTok is temporarily unavailable.';
     empty.hidden=false;empty.textContent=code==='not_connected'?'Followers, likes, and the latest video will appear here once connected.':'Please check back in a little while.';
@@ -59,6 +60,7 @@
   }
   function schedule(){clearInterval(timer);if(visible&&!document.hidden){load();timer=setInterval(load,60000);}else pause();}
   refresh.addEventListener('click',load);
+  document.addEventListener('DOMContentLoaded',()=>{if(new URLSearchParams(location.search).get('tab')==='tiktok')document.getElementById('tiktok-tab').click();});
   window.addEventListener('portfolio:tab',event=>{visible=event.detail==='tiktok';schedule();});
   document.addEventListener('visibilitychange',schedule);
   window.addEventListener('message',event=>{

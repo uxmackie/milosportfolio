@@ -1,3 +1,4 @@
+const auth=require('../lib/tiktok-auth.cjs');
 // Vercel server-only endpoint. Never put this token in dist/ or client JavaScript.
 let cached, pending;
 const count = value => Number.isSafeInteger(value) && value >= 0 ? value : null;
@@ -36,8 +37,8 @@ async function load(token) {
 module.exports = async function handler(req,res) {
   res.setHeader('Cache-Control','no-store');
   if(req.method !== 'GET'){res.setHeader('Allow','GET');return res.status(405).json({status:'method_not_allowed'});}
-  const token=process.env.TIKTOK_ACCESS_TOKEN;
-  if(!token)return res.status(503).json({status:'not_connected'});
+  let token;
+  try{token=await auth.access();}catch(error){cached=null;return res.status(503).json({status:['not_connected','not_configured'].includes(error.message)?'not_connected':error.message==='reconnect_required'?'reconnect_required':'unavailable'});}
   // Cache counts for 60s and coalesce concurrent requests in this instance.
   if(cached?.token===token && Date.now()-cached.time<60000)return res.status(200).json(cached.data);
   try {
@@ -45,8 +46,9 @@ module.exports = async function handler(req,res) {
     const data=await pending.promise;cached={token,time:Date.now(),data};
     return res.status(200).json(data);
   }catch(error){
-    if(cached?.token===token && Date.now()-cached.time<900000)return res.status(200).json({...cached.data,stale:true});
     const auth=error.status===401 || ['access_token_invalid','access_token_expired'].includes(error.code);
+    if(!auth && cached?.token===token && Date.now()-cached.time<900000)return res.status(200).json({...cached.data,stale:true});
+    if(auth)cached=null;
     return res.status(503).json({status:auth?'reconnect_required':'unavailable'});
   }
 };
