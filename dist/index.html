@@ -7,7 +7,7 @@
     <title>nerdyleclerc · my little corner</title>
     <meta
       name="description"
-      content="A little about me."
+      content="A little about milo - @nerdyleclerc on X"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
       rel="stylesheet"
     />
     <link rel="icon" href="assets/favicon.svg" />
-    <link rel="stylesheet" href="assets/portfolio.css?v=7" />
+    <link rel="stylesheet" href="assets/portfolio.css?v=8" />
   </head>
   <body>
     <canvas id="wallpaper" aria-hidden="true"></canvas>
@@ -55,7 +55,6 @@
       ><span class="motion-label">Pause motion</span>
     </button>
     <main>
-      <!-- PERSONALIZE: Your name, monogram, biography, interests and boundaries. -->
       <article class="profile-card glass">
         <canvas class="glass-texture" aria-hidden="true"></canvas>
         <header class="identity">
@@ -98,6 +97,16 @@
               ><span>Interests</span>
             </button>
             <button
+              id="tiktok-tab"
+              role="tab"
+              aria-controls="tiktok-panel"
+              aria-selected="false"
+              tabindex="-1"
+              data-tab="tiktok"
+            >
+              <span aria-hidden="true">♪</span><span>TikTok</span>
+            </button>
+            <button
               id="dni-tab"
               role="tab"
               aria-controls="dni-panel"
@@ -117,13 +126,13 @@
             aria-labelledby="about-tab"
             tabindex="0"
           >
-            <p class="eyebrow">Oh that me? Pure aura</p>
+            <p class="eyebrow">Oh that me? pure aura</p>
             <h2>👋 Hey, I’m Milo.</h2>
             <p>
               I like watching Formula 1, and I also like editing! (sometimes)
             </p>
             <p>
-              I also like to listen to music and listening to music is something that I like to do!
+              I also like to listen to music, playing video games and just living out life.
             </p>
           </section>
           <section
@@ -134,30 +143,80 @@
             hidden
           >
             <p class="eyebrow">Hobbies & interests</p>
-            <h2>Things I find interesting</h2>
+            <h2>Things I waste my time on</h2>
             <ul class="interests">
               <li>
                 <span>01</span>
                 <div>
                   <h3>Formula 1</h3>
-                  <p>Even though this sport gives me despression everyday (Thank you a lot, Ferrari) I'll always somehow find my way back to it</p>
+                  <p>This sport is my reason for wanting to end it all everyday. (Thank you, Ferrari!)</p>
                 </div>
               </li>
               <li>
                 <span>02</span>
                 <div>
                   <h3>Editing</h3>
-                  <p>My number one source for having a hunchback posture. (ehem ehem... <strong>@nerdyleclerc</strong>)</p>
+                  <p>My biggest source of my hunchback posture. (more cool stuff about my edits in the TikTok tab!)</p>
                 </div>
               </li>
               <li>
                 <span>03</span>
                 <div>
-                  <h3>Making things</h3>
-                  <p>Turning ideas into something for the web.</p>
+                  <h3>Video Games</h3>
+                  <p>Gotta put that rage from from watching F1 to use, am I right?... Right?</p>
                 </div>
               </li>
             </ul>
+          </section>
+          <section
+            id="tiktok-panel"
+            role="tabpanel"
+            aria-labelledby="tiktok-tab"
+            tabindex="0"
+            hidden
+          >
+            <p class="eyebrow">On TikTok</p>
+            <div class="tiktok-heading">
+              <h2 id="tiktok-name">A little more of me.</h2>
+              <button
+                id="tiktok-refresh"
+                type="button"
+                aria-label="Refresh TikTok stats"
+              >
+                ↻
+              </button>
+            </div>
+            <div class="tiktok-stats" aria-label="TikTok account statistics">
+              <div>
+                <strong id="tt-followers">—</strong><span>Followers</span>
+              </div>
+              <div><strong id="tt-likes">—</strong><span>Likes</span></div>
+              <div><strong id="tt-videos">—</strong><span>Videos</span></div>
+            </div>
+            <p id="tiktok-status" role="status">
+              Open this tab to load TikTok.
+            </p>
+            <div id="tiktok-video" hidden>
+              <div class="video-heading">
+                <h3>Latest video</h3>
+                <time id="tt-date"></time>
+              </div>
+              <div id="tt-player"></div>
+              <p id="tt-caption"></p>
+              <div class="video-stats">
+                <span><b id="tt-video-likes">—</b> likes</span
+                ><span><b id="tt-comments">—</b> comments</span
+                ><span><b id="tt-views">—</b> views</span
+                ><span><b id="tt-shares">—</b> shares</span>
+              </div>
+              <a id="tt-open" target="_blank" rel="noopener noreferrer"
+                >Watch on TikTok ↗</a
+              >
+            </div>
+            <p id="tiktok-empty" class="tiktok-empty">
+              Stats and recent videos will appear once this account is
+              connected.
+            </p>
           </section>
           <section
             id="dni-panel"
@@ -171,8 +230,8 @@
             <p>Let’s keep this space kind and comfortable.</p>
             <ul class="boundaries">
               <li>No hate, discrimination, or harassment.</li>
-              <li>If you're an LS18 fan, please don't interact with me (respectfully)</li>
-              <li>Overral, just don't be a weird and we'll get along just fine!</li>
+              <li>If you're an LS18, respectfully don't interact with me.</li>
+              <li>Overall, just don't be weird and we'll get along just fine.</li>
             </ul>
           </section>
         </div>
@@ -184,6 +243,7 @@
 
       <p class="signoff">a little corner of the internet · nerdyleclerc</p>
     </main>
-    <script src="assets/portfolio.js?v=7"></script>
+    <script src="assets/portfolio.js?v=8"></script>
+    <script src="assets/tiktok.js?v=8"></script>
   </body>
 </html>
