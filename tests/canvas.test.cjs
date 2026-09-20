@@ -1,7 +1,7 @@
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
 test('resize repaints synchronously and unchanged measurements do not clear canvas',()=>{
  const source=fs.readFileSync('dist/assets/portfolio.js','utf8');
- const functions=source.slice(source.indexOf('  function measure(){'),source.indexOf('  function label(){'));
+ const functions=source.slice(source.indexOf('  function measure(){'),source.indexOf('  function refresh(){'));
  let clears=0,draws=0,callbacks=0;
  const context={setTransform(){},fillRect(){},drawImage(){draws++;}};
  function canvas(w,h){let width=w,height=h;return {get width(){return width;},set width(v){width=v;clears++;},get height(){return height;},set height(v){height=v;clears++;},getBoundingClientRect(){return {left:10,top:10,width:200,height:300};}};}

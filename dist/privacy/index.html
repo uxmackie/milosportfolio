@@ -62,7 +62,7 @@
             How this portfolio handles visitor information and TikTok data.
           </p>
           <p class="legal-date">
-            Last updated <time datetime="2026-09-10">September 10, 2026</time>
+              Last updated <time datetime="2026-09-20">September 20, 2026</time>
           </p>
         </header>
         <div class="legal-copy">
@@ -85,9 +85,12 @@
             <h2>2. Information from visitors</h2>
             <p>
               This site does not provide visitor registration, payment forms, or
-              a form to connect visitors' TikTok accounts. The current site does
-              not include its own advertising trackers or analytics scripts, and
-              does not use cookies or local storage to track visitors. The
+              a form to connect visitors' TikTok accounts. A page-view counter
+              stores an aggregate total in Upstash Redis, counting each homepage
+              load including repeat visits. The counter does not store visitor
+              identifiers, IP addresses, or browsing histories in Redis and does
+              not use cookies or local storage. The site does not include
+              advertising trackers. The
               private owner connection flow uses essential, secure cookies to
               validate forms and TikTok authorization callbacks; these expire
               after ten minutes and are not used for advertising.

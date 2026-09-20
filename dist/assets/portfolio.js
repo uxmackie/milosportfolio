@@ -2,21 +2,9 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const tabs = [...document.querySelectorAll('[role=tab]')];
   const dock = document.querySelector('.tabs');
-  const selection = document.querySelector('.selection');
-  let active = 0, springFrame = 0, x = 0, velocity = 0, target = 0, previous = 0;
-  function spring(now) {
-    const dt = Math.min((now - (previous || now)) / 1000, .032); previous = now;
-    const w = 30, d = x - target, c = velocity + w * d, decay = Math.exp(-w * dt);
-    x = target + (d + c * dt) * decay; velocity = (velocity - w * c * dt) * decay;
-    selection.style.transform = `translateX(${x}px)`;
-    if (Math.abs(x-target) > .05 || Math.abs(velocity) > .05) springFrame = requestAnimationFrame(spring);
-    else { selection.style.transform = `translateX(${target}px)`; x=target; springFrame=0; previous=0; }
-  }
-  function position(instant) {
-    const tab=tabs[active]; target=tab.offsetLeft;selection.style.width=`${tab.offsetWidth}px`;
-    if (instant || reduced.matches) {cancelAnimationFrame(springFrame);springFrame=0;previous=0;velocity=0;x=target;selection.style.transform=`translateX(${x}px)`;}
-    else if (!springFrame) springFrame=requestAnimationFrame(spring);
-  }
+  // Expandable interaction inspired by Victor Welander's 21st.dev tabs.
+  // Visual expansion is separate from the selected content panel.
+  let active = 0;
   const area=document.querySelector('.panel-area');
   let sizeAnimation;
   function fitPanel(instant=false){
@@ -32,9 +20,14 @@
     }
   }
   window.addEventListener('portfolio:content',()=>fitPanel());
-  new ResizeObserver(()=>fitPanel(true)).observe(dock);
+  let panelWidth = 0;
+  new ResizeObserver(([entry])=>{
+    if(entry.contentRect.width !== panelWidth){panelWidth=entry.contentRect.width;fitPanel(true);}
+  }).observe(area);
   if(document.fonts)document.fonts.ready.then(()=>fitPanel(true));
   function select(index, keyboard=false) {
+    dock.dataset.instant=String(keyboard);
+    dock.dataset.collapsed='false';
     if (index===active) {if(keyboard)tabs[index].focus();return;}
     area.style.height=`${area.getBoundingClientRect().height}px`;
     active=index;
@@ -47,7 +40,7 @@
     dock.dataset.active=tabs[index].dataset.tab;
     fitPanel(keyboard);
     window.dispatchEvent(new CustomEvent("portfolio:tab",{detail:tabs[index].dataset.tab}));
-    position(keyboard);if(keyboard)tabs[index].focus();
+    if(keyboard)tabs[index].focus();
   }
   tabs.forEach((tab,index)=>{
     tab.addEventListener('click',event=>select(index,event.detail===0));
@@ -60,12 +53,25 @@
       if(next!==undefined){event.preventDefault();select(next,true);}
     });
   });
-  new ResizeObserver(()=>position(true)).observe(dock);
-  reduced.addEventListener('change',()=>position(true));
+  document.addEventListener('pointerdown',event=>{
+    if(!dock.contains(event.target)){dock.dataset.instant='false';dock.dataset.collapsed='true';}
+  });
+  dock.addEventListener('focusin',()=>{dock.dataset.instant='true';dock.dataset.collapsed='false';});
+  dock.addEventListener('focusout',event=>{
+    if(!dock.contains(event.relatedTarget)){dock.dataset.instant='true';dock.dataset.collapsed='true';}
+  });
+  dock.addEventListener('keydown',event=>{
+    if(event.key==='Escape'){dock.dataset.instant='true';dock.dataset.collapsed='true';}
+  });
+  reduced.addEventListener('change',()=>{
+    if(reduced.matches){area.getAnimations().forEach(animation=>animation.cancel());sizeAnimation=null;fitPanel(true);}
+  });
 
   // Each glass surface receives the same wallpaper crop as the scene behind it.
   // Blur is applied to that actual canvas element, independently of backdrop-filter.
   const background=document.getElementById('wallpaper');
+  // Solid-background pages need tabs, but no wallpaper image or render loop.
+  if(!background)return;
   const surfaces=[...document.querySelectorAll('.glass-texture')];
   const ctx=background.getContext('2d',{alpha:false});
   const layers=surfaces.map(canvas=>({canvas,ctx:canvas.getContext('2d',{alpha:false})}));
